@@ -18,3 +18,7 @@ __pycache__/
 
 # Ignore .env file
 .env
+
+# Ignore Python filed created for notes
+step_1.py
+test_connection.py
