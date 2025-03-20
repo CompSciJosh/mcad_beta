@@ -1,6 +1,6 @@
-##############################################
-### Step 3: Set Up the Database Connection ###
-##############################################
+######################################
+### Set Up the Database Connection ###
+######################################
 
 # import snowflake.connector
 # from config import (
@@ -19,9 +19,9 @@
 #         schema=SNOWFLAKE_SCHEMA
 #     )
 #     return conn
-#######################################################
-### Step 7: Configure Snowflake Database Connection ###
-#######################################################
+###############################################
+### Configure Snowflake Database Connection ###
+###############################################
 import os
 import snowflake.connector
 from dotenv import load_dotenv
