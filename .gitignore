@@ -25,4 +25,6 @@ test_connection.py
 crater_detection.py
 
 # Ignore directory
-mcad/
+app/backend/mcad/
+app/backend/mcad/data/
+app/backend/mcad/data/database/
