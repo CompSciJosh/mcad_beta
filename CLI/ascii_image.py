@@ -5,9 +5,9 @@ ASCII Art for MCAD Command Line Interface
 input: joshuajackson@VackSealed-MacBook-Air mcad_beta % source .venv/bin/activate
 result: (.venv) joshuajackson@VackSealed-MacBook-Air mcad_beta %
 """
-############################################
-##### My Second Fav Output So Far 👍🏾👇🏾#####
-###########################################
+###################################
+##### Output ASCII NASA Image #####
+###################################
 # import os
 # import ascii_magic
 #
@@ -29,9 +29,10 @@ result: (.venv) joshuajackson@VackSealed-MacBook-Air mcad_beta %
 # )
 
 
-#########################################
-#### 👍🏾✅ This Is The One Boss ✅👍🏾 ####
-#########################################
+##########################################
+#### Output and Save ASCII NASA Image ####
+###### Run With cat In The Terminal ######
+##########################################
 import os
 import ascii_magic
 
