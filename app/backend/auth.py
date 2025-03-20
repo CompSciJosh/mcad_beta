@@ -1,6 +1,6 @@
-########################################
-### Step 6: Implement Authentication ###
-########################################
+################################
+### Implement Authentication ###
+################################
 
 from datetime import datetime, timedelta
 from typing import Optional
