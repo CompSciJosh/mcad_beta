@@ -2,10 +2,60 @@
 # Senior Design Spring '25: Multiscale Crater Analysis and Detection (MCAD)
 # February 13, 2025
 
+##########################################################
+######### ✅Upload PNG files to the Internal Stage #######
+##########################################################
+import snowflake.connector
+import os
+
+# Establish the connection to Snowflake
+conn = snowflake.connector.connect(
+    user=os.getenv("SNOWFLAKE_USER"),
+    password=os.getenv("SNOWFLAKE_PASSWORD"),
+    account=os.getenv("SNOWFLAKE_ACCOUNT"),
+    warehouse="JAMS_WH",
+    database="JAMS_DB",
+    schema="JAMS"
+)
+cur = conn.cursor()
+
+# Set database and schema
+# cur.execute("USE DATABASE JAMS_DB;") # Old DB
+# cur.execute("USE SCHEMA JAMS;") # Old Schema
+
+# Path where PNG files are stored
+data_folder = "/Users/joshuajackson/Downloads/mcad_moon_data"
+
+# Upload PNG files to Snowflake with unique subfolder paths
+for root, _, files in os.walk(data_folder):
+    subfolder_name = os.path.basename(root)  # Extract folder name (000, 001, ..., 275)
+
+    for file in files:
+        if file.endswith(".png"):  # Upload only PNG files
+            file_path = os.path.join(root, file)
+            stage_file_path = f"@original_png_internal_stage/{subfolder_name}"  # Unique path
+
+            # Debugging prints
+            print(f"Uploading: {file_path} --> {stage_file_path}")
+
+            stage_command = f"PUT file://{file_path} {stage_file_path} AUTO_COMPRESS=FALSE"
+
+            try:
+                cur.execute(stage_command)
+                print(f"Uploaded: {file} to {stage_file_path}")
+            except snowflake.connector.errors.ProgrammingError as e:
+                print(f"Error uploading {file}: {e}")
+
+print("✅ All PNG files uploaded to Snowflake Internal Stage!")
+
+conn.commit()
+cur.close()
+conn.close()
+
+
 ##############################################################################
-############################## Formerly Step 1 ###############################
 ############### No Longer Needed - PNG-JSON Dictionary Mapping ###############
-######################## Updated Code Used At Bottom #########################
+######################## Updated Code Used At Top ############################
 ##############################################################################
 # import os
 # import snowflake.connector
@@ -36,10 +86,9 @@
 #
 # print(f"\nTotal mappings created: {len(png_to_json_mapping)}")
 
-#################################################################################
-##################### This is the one as of March 18, 2025 ######################
-######## 👇🏾👉🏾✅ Step 2 - Upload JSON files to the Internal Stage ✅👈🏾👇🏾 #######
-#################################################################################
+#######################################################################
+######## 👇🏾👉🏾✅ Upload JSON files to the Internal Stage ✅👈🏾👇🏾 #######
+########################################################################
 # import snowflake.connector
 # import os
 #
@@ -88,10 +137,10 @@
 # cur.close()
 # conn.close()
 
-#########################################
-#### WORKED for uploading JSON files ####
-#### Will keep for reference for now ####
-#########################################
+#####################################
+###### For uploading JSON files #####
+#### Below is for reference only ####
+#####################################
 # import snowflake.connector
 # import os
 #
@@ -145,60 +194,9 @@
 # conn.close()
 
 
-###################################################################
-######### ✅Step 3 - Upload PNG files to the Internal Stage #######
-###################################################################
-import snowflake.connector
-import os
-
-# Establish the connection to Snowflake
-conn = snowflake.connector.connect(
-    user=os.getenv("SNOWFLAKE_USER"),
-    password=os.getenv("SNOWFLAKE_PASSWORD"),
-    account=os.getenv("SNOWFLAKE_ACCOUNT"),
-    warehouse="JAMS_WH",
-    database="JAMS_DB",
-    schema="JAMS"
-)
-cur = conn.cursor()
-
-# Set database and schema
-# cur.execute("USE DATABASE JAMS_DB;")
-# cur.execute("USE SCHEMA JAMS;")
-
-# Path where PNG files are stored
-data_folder = "/Users/joshuajackson/Downloads/mcad_moon_data"
-
-# Upload PNG files to Snowflake with unique subfolder paths
-for root, _, files in os.walk(data_folder):
-    subfolder_name = os.path.basename(root)  # Extract folder name (000, 001, ..., 275)
-
-    for file in files:
-        if file.endswith(".png"):  # Upload only PNG files
-            file_path = os.path.join(root, file)
-            stage_file_path = f"@original_png_internal_stage/{subfolder_name}"  # Unique path
-
-            # Debugging prints
-            print(f"Uploading: {file_path} --> {stage_file_path}")
-
-            stage_command = f"PUT file://{file_path} {stage_file_path} AUTO_COMPRESS=FALSE"
-
-            try:
-                cur.execute(stage_command)
-                print(f"Uploaded: {file} to {stage_file_path}")
-            except snowflake.connector.errors.ProgrammingError as e:
-                print(f"Error uploading {file}: {e}")
-
-print("✅ All PNG files uploaded to Snowflake Internal Stage!")
-
-conn.commit()
-cur.close()
-conn.close()
-
 ##############################################################################
-############################## Formerly Step 4 ###############################
 ######### No Longer Needed - Insert PNG-JSON Mappings Into Snowflake #########
-######################## Updated Code Used At Bottom #########################
+######################## Updated Code Used At Top ############################
 ##############################################################################
 # conn = snowflake.connector.connect(
 #     user="",
@@ -227,18 +225,10 @@ conn.close()
 #
 # print("PNG-JSON mapping successfully stored in Snowflake!")
 
-############################################################################
-####### 🤔Step 4 Updated - Insert PNG-JSON Mappings Into Snowflake #########
-################ This also completes the task of Step 1  ###################
-########################## Use This When Ready #############################
-########################## Might Need to Update ############################
-############################################################################
-"""
-I want a column that maps the tells which image the JSON data is referring to.
-    Such as 001-image_1.json. ... i.e. {subfolder_name}"-"{file_name}
-I really want to display the image in Python via Snowflake
-Also I want to make the column PNG_FILE_PATH the primary key.
-"""
+#####################################################################
+####### 🤔Updated - Insert PNG-JSON Mappings Into Snowflake #########
+#####################################################################
+
 # import os
 # import snowflake.connector
 # import json
@@ -320,12 +310,11 @@ Also I want to make the column PNG_FILE_PATH the primary key.
 #
 # print("👍🏾🚀PNG-JSON mapping successfully stored in Snowflake!🚀👍🏾")
 
-####################################################################################
-############################# 🎉🚀Step 4 Updated 🎉🚀 #############################
-############ ✅ As of Feb. 17, 2025 I like the code below the most ✅ #############
-############# because it avoids duplicates using the WHERE NOT EXISTS ##############
-########### 👍🏾Insert JSON data into MOON_CRATER_DATA with PNG mapping 👍🏾###########
-####################################################################################
+##################################################################################
+############################# 🎉🚀Step Updated 🎉🚀 #############################
+################## Avoids duplicates using the WHERE NOT EXISTS ##################
+########### 👍🏾Insert JSON data into MOON_CRATER_DATA with PNG mapping 👍🏾##########
+###################################################################################
 # import os
 # import snowflake.connector
 # import json

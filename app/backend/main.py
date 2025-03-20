@@ -20,9 +20,9 @@
  pip install fastapi uvicorn bcrypt pyjwt python-dotenv snowflake-connector-python
  In PyCharm terminal press: Ctrl + C to stop the server
 """
-#############################################
-### Step 8: Implement User Authentication ###
-#############################################
+#####################################
+### Implement User Authentication ###
+#####################################
 import json
 import re
 import nltk
@@ -101,7 +101,7 @@ def validate_password(password: str) -> bool:
 
 ####################################
 #### Debugging Password Example ####
-##################################
+####################################
 # def validate_password(password: str) -> bool:
 #     """Validates password strength."""
 #     print(f"Validating password: {password}")  # Debugging
@@ -214,10 +214,10 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
             conn.close()
     raise HTTPException(status_code=500, detail="Database connection failed")
 
-####################################################################################
-############ Calculate Camera Distance From Moon ###################################
-############ Calculate Diameter of Craters Using Their Pixel Size ##################
-####################################################################################
+###########################################################################
+############# Calculate Camera Distance From Moon #########################
+##### Calculate Diameter of Craters Using Their Pixel Size ################
+###########################################################################
 """
 Next as of Feb. 23, 2025 - Test the API using:
 uvicorn main:app --reload
@@ -422,9 +422,9 @@ def list_png_files(folder_number: str):
 #             conn.close()
 #     raise HTTPException(status_code=500, detail="Database connection failed")
 
-#############################
-######## 4th Version ########
-#############################
+############################
+######## 4th Update ########
+############################
 # @app.get("/get_png/{folder_number}/{file_name}")
 # def get_png(folder_number: str, file_name: str):
 #     """Fetch PNG image from Snowflake and return it as a base64 string."""

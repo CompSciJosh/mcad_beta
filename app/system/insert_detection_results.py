@@ -5,9 +5,12 @@ from datetime import datetime
 
 # Connect to Snowflake
 conn = snowflake.connector.connect(
-    user="YOUR_USER",
-    password="YOUR_PASSWORD",
-    account="YOUR_ACCOUNT"
+    user=os.getenv("SNOWFLAKE_USER"),
+    password=os.getenv("SNOWFLAKE_PASSWORD"),
+    account=os.getenv("SNOWFLAKE_ACCOUNT"),
+    warehouse="JAMS_WH",
+    database="JAMS_DB",
+    schema="JAMS"
 )
 cur = conn.cursor()
 
@@ -25,7 +28,7 @@ def insert_crater_results(results):
     cur.execute(query, (image_id, detected_craters, crater_count, processing_time, detection_timestamp))
     conn.commit()
 
-# Example insertion
+# Example Insertion
 sample_results = {
     "image_id": "001/image_0.png",
     "detected_craters": [{"center": (150, 200), "radius": 30, "confidence": 0.9}],

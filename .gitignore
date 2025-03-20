@@ -22,3 +22,7 @@ __pycache__/
 # Ignore Python filed created for notes
 step_1.py
 test_connection.py
+crater_detection.py
+
+# Ignore directory
+mcad/
