@@ -1,7 +1,7 @@
-#################################################
-### Step 2.2: Configure Environment Variables ###
-########### 2️⃣ Load .env in config.py ###########
-#################################################
+#######################################
+### Configure Environment Variables ###
+##### #Load .env in config.py #########
+#######################################
 
 import os
 from dotenv import load_dotenv
