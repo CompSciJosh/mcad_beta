@@ -49,7 +49,7 @@ if not os.path.exists(image_path):
 output = ascii_magic.from_image(image_path)
 
 # Save to file with ANSI color codes - pass the path directly, not a file object
-output.to_file(output_file_path, columns=240, width_ratio=2.3) # 👈🏾That's it Boss 👍🏾✅
+output.to_file(output_file_path, columns=240, width_ratio=2.3)
 
 # Also display in terminal (optional)
 output.to_terminal(
