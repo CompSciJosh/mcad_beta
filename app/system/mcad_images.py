@@ -6,9 +6,9 @@ conn = snowflake.connector.connect(
     user=os.getenv("SNOWFLAKE_USER"),
     password=os.getenv("SNOWFLAKE_PASSWORD"),
     account=os.getenv("SNOWFLAKE_ACCOUNT"),
-    warehouse="mcad_warehouse",
-    database="MCAD",
-    schema="mcad_data"
+    warehouse="JAMS_WH",
+    database="JAMS_DB",
+    schema="JAMS"
 )
 cur = conn.cursor()
 
@@ -31,7 +31,7 @@ for root, _, files in os.walk(data_folder):
 
                 # SQL Insert Statement
                 sql_query = """
-                    INSERT INTO MCAD.MCAD_DATA.MOON_CRATER_IMAGES ("PNG File", "Image_Data")
+                    INSERT INTO JAMS_DB.JAMS.MOON_CRATER_IMAGES ("PNG File", "Image_Data")
                     VALUES (%s, %s)
                 """
 
