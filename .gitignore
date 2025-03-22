@@ -12,10 +12,6 @@ __pycache__/
 # Ignore personal notes
 notes.txt
 
-__pycache__/
-.DS_Store
-.idea/
-
 # Ignore .env file
 .env
 
