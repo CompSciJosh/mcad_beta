@@ -24,3 +24,4 @@ crater_detection.py
 app/backend/mcad/
 app/backend/mcad/data/
 app/backend/mcad/data/database/
+data/
