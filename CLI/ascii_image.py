@@ -4,6 +4,8 @@ March 18, 2025,
 ASCII Art for MCAD Command Line Interface
 input: joshuajackson@VackSealed-MacBook-Air mcad_beta % source .venv/bin/activate
 result: (.venv) joshuajackson@VackSealed-MacBook-Air mcad_beta %
+To output ASCII art in the terminal: cat ~/PycharmProjects/mcad_beta/app/frontend/mcad_nasa_colored.txt;
+OR navigate to /frontend directory the run the command cat mcad_nasa_colored.txt
 """
 ###################################
 ##### Output ASCII NASA Image #####
